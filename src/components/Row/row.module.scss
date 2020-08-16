@@ -1,0 +1,72 @@
+$row_border: #e8e8e8;
+$icon_color: #242424;
+
+tr {
+  border-bottom: 1px solid $row_border;
+  td {
+    padding: 0.75em 0;
+    &.control {
+      padding-right: 1em;
+      padding-left: 1em;
+      cursor: pointer;
+    }
+  }
+}
+
+.nested_row {
+  border-bottom: none;
+  & > td {
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+  }
+  &.is_open {
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+.arrow {
+  border: solid $icon_color;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.3s ease;
+
+  &_right {
+    transform: rotate(-45deg);
+  }
+  &_down {
+    transform: rotate(45deg);
+  }
+}
+
+.delete {
+  $height: 16px;
+  $half: calc(#{$height} / 2);
+  width: $height;
+  height: $height;
+  position: relative;
+
+  &::after {
+    content: "";
+    height: $height;
+    border-left: 2px solid $icon_color;
+    position: absolute;
+    transform: rotate(45deg);
+    left: $half;
+  }
+  &::before {
+    content: "";
+    height: $height;
+    border-left: 2px solid $icon_color;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: $half;
+  }
+}
+button.plain {
+  border: none;
+  background-color: transparent;
+  display: block;
+}

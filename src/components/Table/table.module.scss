@@ -1,0 +1,17 @@
+$header_background: #f3f3f7;
+$header_border: #d6d9ec;
+
+.table {
+  font-size: 12px;
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  th {
+    background-color: $header_background;
+    border-bottom: 1px solid $header_border;
+    border-top: 1px solid $header_border;
+    font-weight: 400;
+    padding: 0.5em;
+    text-align: left;
+  }
+}
