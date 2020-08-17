@@ -66,7 +66,11 @@ export default function Row(props) {
         {getRowData()}
 
         <td className={styles.control}>
-          <button onClick={handleDelete} className={styles.delete}>
+          <button
+            aria-label="Delete row"
+            onClick={handleDelete}
+            className={styles.delete}
+          >
             <div className={styles.delete_icon}></div>
           </button>
         </td>
