@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import Table from "./components/Table";
+import Table from "../Table";
 import { connect } from "react-redux";
-import { loadData, removeData } from "./redux/modules/data";
+import { loadData, removeData } from "../../redux/modules/data";
+import styles from "./app.module.scss";
 
 function App(props) {
   const { data, loadData, removeData } = props;
@@ -15,8 +16,9 @@ function App(props) {
   }
 
   if (data.length === 0) return null;
+
   return (
-    <div style={{ padding: "1em" }}>
+    <div className={styles.container}>
       <Table rows={data} onRowDelete={handleDelete} />
     </div>
   );
