@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import styles from "./row.module.scss";
 import classnames from "classnames";
 import Table from "../Table";
 import { isEmpty } from "../../utils";
 import constants from "../../constants";
+const { DATA_KEY, KIDS_KEY, RECORDS_KEY } = constants;
 
 export default function Row(props) {
-  const { DATA_KEY, KIDS_KEY, RECORDS_KEY } = constants;
   const { rowData, indent, onRowDelete } = props;
   const { [DATA_KEY]: data, [KIDS_KEY]: kids } = rowData;
 
@@ -78,3 +79,12 @@ export default function Row(props) {
     </React.Fragment>
   );
 }
+Row.propTypes = {
+  rowData: PropTypes.shape({
+    id: PropTypes.number,
+    [DATA_KEY]: PropTypes.object,
+    [KIDS_KEY]: PropTypes.object,
+  }).isRequired,
+  indent: PropTypes.number,
+  onRowDelete: PropTypes.func.isRequired,
+};
