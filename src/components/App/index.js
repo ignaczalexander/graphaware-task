@@ -15,11 +15,12 @@ function App(props) {
     removeData(id);
   }
 
-  if (data.length === 0) return null;
+  if (data.length === 0)
+    return <div className={styles.empty}>There is no data to display</div>;
 
   return (
     <div className={styles.container}>
-      <Table rows={data} onRowDelete={handleDelete} />
+      <Table rows={data} onRowDelete={handleDelete} caption="JSON TABLE" />
     </div>
   );
 }
