@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import Table from "../Table";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import Table from "../Table";
 import { loadData, removeData } from "../../redux/modules/data";
+import constants from "../../constants";
 import styles from "./app.module.scss";
+const { KIDS_KEY, DATA_KEY } = constants;
 
 function App(props) {
   const { data, loadData, removeData } = props;
@@ -28,6 +31,18 @@ function App(props) {
 const mapStateToProps = (state) => ({
   data: state.data.data,
 });
+
+App.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      [KIDS_KEY]: PropTypes.object,
+      [DATA_KEY]: PropTypes.object,
+    }).isRequired
+  ).isRequired,
+  loadData: PropTypes.func.isRequired,
+  removeData: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, {
   loadData,
