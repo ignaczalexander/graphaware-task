@@ -1,5 +1,4 @@
 import { addId, removeRow } from "../../utils";
-import jsonData from "../../data/example-data.json";
 
 // action types
 const LOAD_DATA = "LOAD_DATA";
@@ -28,6 +27,7 @@ export default function reducer(state = defaultState, action) {
 
 //action creators
 export function loadData() {
+  const jsonData = require("../../data/example-data.json");
   return { type: "LOAD_DATA", payload: jsonData };
 }
 export function removeData(dataId) {
