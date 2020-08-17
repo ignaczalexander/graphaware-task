@@ -2,6 +2,7 @@
   "name": "graphaware-task",
   "version": "0.1.0",
   "author": "Alexander Ignacz",
+  "homepage": "https://graphaware-task.netlify.app/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
