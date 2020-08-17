@@ -30,11 +30,11 @@ export default function Row(props) {
       >
         <td colSpan="100%" style={{ paddingLeft: indent * 20 }}>
           <div>
-            <div>{key.toUpperCase()}</div>
             <Table
               rows={kids[key][RECORDS_KEY]}
               indent={indent + 1}
               onRowDelete={onRowDelete}
+              caption={key.toUpperCase()}
             />
           </div>
         </td>

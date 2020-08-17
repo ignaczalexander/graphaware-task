@@ -4,7 +4,7 @@ import styles from "./table.module.scss";
 import constants from "../../constants";
 
 export default function Table(props) {
-  const { rows, indent, onRowDelete } = props;
+  const { rows, indent, onRowDelete, caption } = props;
   const { DATA_KEY } = constants;
 
   function getTableHeaders() {
@@ -15,6 +15,7 @@ export default function Table(props) {
 
   return (
     <table className={styles.table}>
+      <caption>{caption}</caption>
       <thead>
         <tr>
           <th></th>

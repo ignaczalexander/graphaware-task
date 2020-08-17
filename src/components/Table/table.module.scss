@@ -6,6 +6,12 @@ $header_border: #d6d9ec;
   display: table;
   border-collapse: collapse;
   width: 100%;
+  caption {
+    text-align: left;
+    margin-bottom: 0.5em;
+    color: rgb(100, 100, 100);
+    font-weight: 500;
+  }
   th {
     background-color: $header_background;
     border-bottom: 1px solid $header_border;
