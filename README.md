@@ -1,5 +1,6 @@
 # Graphaware task - JSON hierarchy table visualizer
-This React web application creates a hierarchy table from a JSON input.  </br>
+This React web application creates a hierarchy table from a JSON input. Each item in the JSON data can have a number of nested child items that can be shown or hidden. It is possible to delete an item by clicking on the `X` button. If an item gets deleted its nested child items are also removed.   </br>
+
 The app is deployed to Netlify and can be accessed [here](https://graphaware-task.netlify.app/).
 
 ## Technologies used
