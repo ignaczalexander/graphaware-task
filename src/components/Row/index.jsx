@@ -19,10 +19,6 @@ export default function Row(props) {
     onRowDelete(rowData.id);
   }
 
-  function getRowData() {
-    return Object.keys(data).map((key) => <td key={key}>{data[key]}</td>);
-  }
-
   function getNestedTable() {
     if (!hasKids) return null;
     return Object.keys(kids).map((key) => (
@@ -63,7 +59,9 @@ export default function Row(props) {
           )}
         </td>
 
-        {getRowData()}
+        {Object.keys(data).map((key) => (
+          <td key={key}>{data[key]}</td>
+        ))}
 
         <td className={styles.control}>
           <button
