@@ -1,42 +1,21 @@
 import React, { useState } from "react";
 import source from "./data/example-data.json";
 import Table from "./components/Table";
+import { addId, removeRow } from "./utils";
 
-function App() {
-  function prepareData(data) {
-    let id = 0;
-    function addId(data) {
-      return data.map((row) => {
-        let newRow = {};
-
-        newRow = { id, data: row.data, kids: {} };
-        id++;
-
-        if (Object.keys(row.kids).length === 0) {
-          return newRow;
-        }
-        const keyName = Object.keys(row.kids)[0];
-        newRow.kids[keyName] = { records: addId(row.kids[keyName].records) };
-        return newRow;
-      });
-    }
-    return addId(data);
-  }
-  const [data, setData] = useState(prepareData(source));
+export default function App() {
+  const [data, setData] = useState(addId(source));
   console.log("initial data", data);
 
-  function handleDelete(rowToDelete) {
-    console.log("delete in app", rowToDelete);
-    const updatedData = data.filter((row) => row.id !== rowToDelete.id);
-    console.log(updatedData);
-    setData(updatedData);
+  function handleDelete(id) {
+    const newData = removeRow(data, id);
+    setData(newData);
+    console.log("newData", newData);
   }
 
   return (
-    <div>
+    <div style={{ padding: "1em" }}>
       <Table rows={data} onRowDelete={handleDelete} />
     </div>
   );
 }
-
-export default App;
