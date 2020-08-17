@@ -1,5 +1,14 @@
 $row_border: #e8e8e8;
 $icon_color: #242424;
+$light_gray: #969696;
+
+@mixin button_plain {
+  border: none;
+  background-color: transparent;
+  display: block;
+  outline: none;
+  cursor: pointer;
+}
 
 tr {
   border-bottom: 1px solid $row_border;
@@ -19,10 +28,7 @@ tr {
     padding-top: 1.5em;
     padding-bottom: 1.5em;
   }
-  &.is_open {
-  }
 }
-
 .pointer {
   cursor: pointer;
 }
@@ -41,32 +47,33 @@ tr {
   }
 }
 
-.delete {
+.delete_icon {
   $height: 16px;
-  $half: calc(#{$height} / 2);
   width: $height;
   height: $height;
   position: relative;
-
-  &::after {
-    content: "";
-    height: $height;
-    border-left: 2px solid $icon_color;
-    position: absolute;
-    transform: rotate(45deg);
-    left: $half;
-  }
+  &::after,
   &::before {
     content: "";
     height: $height;
-    border-left: 2px solid $icon_color;
+    border-left: 2px solid $light_gray;
     position: absolute;
+    left: calc(#{$height} / 2);
+  }
+  &::after {
+    transform: rotate(45deg);
+  }
+  &::before {
     transform: rotate(-45deg);
-    left: $half;
   }
 }
-button.plain {
-  border: none;
-  background-color: transparent;
-  display: block;
+
+button.delete {
+  @include button_plain();
+  &:hover {
+    .delete_icon::before,
+    ::after {
+      border-left-color: $icon_color;
+    }
+  }
 }
