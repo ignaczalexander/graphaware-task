@@ -2,69 +2,77 @@ import React, { useState } from "react";
 import styles from "./row.module.scss";
 import classnames from "classnames";
 import Table from "../Table";
+import { isEmpty } from "../../utils";
+import constants from "../../constants";
 
-function Row(props) {
+export default function Row(props) {
+  const { DATA_KEY, KIDS_KEY, RECORDS_KEY } = constants;
   const { rowData, indent, onRowDelete } = props;
-  const { data, kids } = rowData;
+  const { [DATA_KEY]: data, [KIDS_KEY]: kids } = rowData;
+
   const [isOpen, setIsOpen] = useState(false);
-  const hasKids = Object.keys(kids).length > 0;
+
+  const hasKids = !isEmpty(kids);
 
   function handleDelete(e) {
     e.stopPropagation();
-    console.log("delete", rowData);
-    onRowDelete(rowData);
-  }
-  function handleOpen(e) {
-    console.log("!!open clicked");
-    console.log(e.currentTarget);
-    setIsOpen(!isOpen);
+    onRowDelete(rowData.id);
   }
 
-  let kidsElement;
-  if (hasKids) {
-    const kidsElementTitle = Object.keys(kids)[0];
-    kidsElement = (
+  function getRowData() {
+    return Object.keys(data).map((key) => <td key={key}>{data[key]}</td>);
+  }
+
+  function getNestedTable() {
+    if (!hasKids) return null;
+    return Object.keys(kids).map((key) => (
       <tr
-        className={classnames(styles.nested_row, { [styles.is_open]: isOpen })}
+        key={key}
+        className={classnames(styles.nested_row, {
+          [styles.is_open]: isOpen,
+        })}
       >
         <td colSpan="100%" style={{ paddingLeft: indent * 20 }}>
           <div>
-            <div>{kidsElementTitle.toUpperCase()}</div>
+            <div>{key.toUpperCase()}</div>
             <Table
-              rows={kids[kidsElementTitle].records}
+              rows={kids[key][RECORDS_KEY]}
               indent={indent + 1}
               onRowDelete={onRowDelete}
             />
           </div>
         </td>
       </tr>
-    );
+    ));
   }
 
   return (
     <React.Fragment>
-      <tr className={hasKids ? styles.pointer : ""} onClick={handleOpen}>
+      <tr
+        className={classnames({ [styles.pointer]: hasKids })}
+        onClick={() => setIsOpen(hasKids && !isOpen)}
+      >
         <td className={styles.control}>
           {hasKids && (
             <i
-              className={`${styles.arrow} ${
-                isOpen ? styles.arrow_down : styles.arrow_right
-              }`}
+              className={classnames(styles.arrow, {
+                [styles.arrow_down]: isOpen,
+                [styles.arrow_right]: !isOpen,
+              })}
             ></i>
           )}
         </td>
-        {Object.keys(data).map((key) => {
-          return <td key={key}>{data[key]}</td>;
-        })}
+
+        {getRowData()}
+
         <td className={styles.control}>
-          <button onClick={handleDelete} className={styles.plain}>
-            <div className={styles.delete}></div>
+          <button onClick={handleDelete} className={styles.delete}>
+            <div className={styles.delete_icon}></div>
           </button>
         </td>
       </tr>
-      {isOpen && kidsElement}
+
+      {isOpen && getNestedTable()}
     </React.Fragment>
   );
 }
-
-export default Row;

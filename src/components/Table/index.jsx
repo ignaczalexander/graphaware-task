@@ -1,18 +1,24 @@
 import React from "react";
-import styles from "./table.module.scss";
 import Row from "../Row";
+import styles from "./table.module.scss";
+import constants from "../../constants";
 
-function Table(props) {
+export default function Table(props) {
   const { rows, indent, onRowDelete } = props;
+  const { DATA_KEY } = constants;
+
+  function getTableHeaders() {
+    return Object.keys(rows[0][DATA_KEY]).map((key) => (
+      <th key={key}>{key}</th>
+    ));
+  }
 
   return (
     <table className={styles.table}>
       <thead>
         <tr>
           <th></th>
-          {Object.keys(rows[0].data).map((key) => (
-            <th key={key}>{key}</th>
-          ))}
+          {getTableHeaders()}
           <th></th>
         </tr>
       </thead>
@@ -33,5 +39,3 @@ function Table(props) {
 Table.defaultProps = {
   indent: 1,
 };
-
-export default Table;
