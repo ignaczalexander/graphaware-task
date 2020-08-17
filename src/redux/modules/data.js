@@ -28,8 +28,8 @@ export default function reducer(state = defaultState, action) {
 //action creators
 export function loadData() {
   const jsonData = require("../../data/example-data.json");
-  return { type: "LOAD_DATA", payload: jsonData };
+  return { type: LOAD_DATA, payload: jsonData };
 }
 export function removeData(dataId) {
-  return { type: "REMOVE_DATA", payload: dataId };
+  return { type: REMOVE_DATA, payload: dataId };
 }
