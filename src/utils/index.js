@@ -21,8 +21,8 @@ export function addId(data, id = 0) {
     return row;
   });
 }
-export function removeRow(parentRow, id) {
-  return parentRow
+export function removeRow(rows, id) {
+  return rows
     .filter((subRow) => subRow.id !== id)
     .map((subRow) => {
       if (isEmpty(subRow[KIDS_KEY])) return subRow;
