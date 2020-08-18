@@ -27,16 +27,17 @@ export function removeRow(rows, id) {
   return rows
     .filter((subRow) => subRow.id !== id)
     .map((subRow) => {
-      if (isEmpty(subRow[KIDS_KEY])) return subRow;
-      Object.keys(subRow[KIDS_KEY]).forEach((key) => {
-        const kidNode = subRow[KIDS_KEY][key];
-        const newRecords = removeRow(kidNode[RECORDS_KEY], id);
-        if (newRecords.length === 0) {
-          delete subRow[KIDS_KEY][key];
-        } else {
-          subRow[KIDS_KEY][key][RECORDS_KEY] = newRecords;
-        }
-      });
+      if (!isEmpty(subRow[KIDS_KEY])) {
+        Object.keys(subRow[KIDS_KEY]).forEach((key) => {
+          const kidNode = subRow[KIDS_KEY][key];
+          const newRecords = removeRow(kidNode[RECORDS_KEY], id);
+          if (newRecords.length === 0) {
+            delete subRow[KIDS_KEY][key];
+          } else {
+            subRow[KIDS_KEY][key][RECORDS_KEY] = newRecords;
+          }
+        });
+      }
       return subRow;
     });
 }
